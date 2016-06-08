@@ -1,4 +1,4 @@
-package recovery;
+package LoggingandRecovery;
 
 import java.io.File;
 import java.io.IOException;
@@ -64,7 +64,7 @@ public class PersistenzManager {
             strLogSN = logSN + "";
         }
         _toWrite = pageid + "," + strLogSN + "," + data;
-        System.out.println(_toWrite);
+        System.out.println("PageID:"+pageid+","+"LogSN:"+strLogSN+","+"Data:"+data);
         //Falls Transaktions ID exsistiert schon in der Puffer. 
         if (this._puffer.containsKey(taid + "")) {
             pufferTADaten = this._puffer.remove(taid + "");
@@ -122,7 +122,7 @@ public class PersistenzManager {
                 for (int i = 0; i < TADaten.size(); i++) {
                     String einzelneCommit = TADaten.get(i);
                     einzelneCommit = einzelneCommit + ";" + "\n";
-                    long len = einzelneCommit.length();//sieht kommisch aus 
+                    long len = einzelneCommit.length();
                     int pageID = Integer.valueOf(einzelneCommit.substring(0, commaPosition));
                     raf.seek((pageID - 1) * len);//((pageID)*(len+3));
                     raf.writeBytes(einzelneCommit);
@@ -150,8 +150,8 @@ public class PersistenzManager {
         }
         String logFormat = strLogSN + "," + taid + "," + "committeds" + ";" + "\n";
         long len = logFormat.length();// +200;
-        System.out.println(logFormat);
-        RandomAccessFile raf = new RandomAccessFile(this._LOG_DATEN, "rw");
+          System.out.println("TAID:"+taid+","+"LogSN:"+strLogSN+","+"committeds");
+      RandomAccessFile raf = new RandomAccessFile(this._LOG_DATEN, "rw");
         raf.seek(Integer.valueOf(logSN - 1) * len);//*(len+2));
         raf.writeBytes(logFormat);
         raf.close();
@@ -161,7 +161,7 @@ public class PersistenzManager {
     }
 
     private void logDaten(int pageid, int taid, int logSN) throws IOException {
-        //TODO 
+         
         String strLogSN = null;
         if (logSN < 10) {
             strLogSN = "0" + logSN;

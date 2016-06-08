@@ -1,4 +1,4 @@
-package recovery;
+package LoggingandRecovery;
 
 
 public class Client implements Runnable{

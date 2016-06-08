@@ -1,7 +1,7 @@
-package recovery;
+package LoggingandRecovery;
 
 
-public class Laufen {
+public class ClientPool {
 
 	Client client1 = new Client("1");
 	Client client2 = new Client("2");
